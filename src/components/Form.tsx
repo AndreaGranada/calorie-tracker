@@ -17,7 +17,13 @@ export default function Form() {
             ...activity,
             [e.target.id] : isNumberField ? +e.target.value : e.target.value
         })
-        
+    }
+
+    const isValidActivity = () => {
+        const {name, calories} = activity
+        console.log(name.trim() !== "" && calories > 0)
+        return name.trim() !== "" && calories > 0
+
     }
 
     return (
@@ -40,7 +46,7 @@ export default function Form() {
                 <label htmlFor="calories" className="font-bold">Calorías</label>
                 <input type="number" id="calories" className="border border-slate-300 p-2 rounded-lg" placeholder="Calorias. Ej. 300 o 500" value={activity.calories} onChange={handleChange} />
             </div>
-            <input type="submit" className="bg-gray-800 hover:bg-gray-900 w-full p-2 font-bold uppercase text-white cursor-pointer" value="Guardar Comida o Guardar Ejercicio"/>
+            <input type="submit" className="bg-gray-800 hover:bg-gray-900 w-full p-2 font-bold uppercase text-white cursor-pointer disabled:opacity-10" value="Guardar Comida o Guardar Ejercicio" disabled={!isValidActivity()}/>
         </form>
     )
 }
